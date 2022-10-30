@@ -1,0 +1,33 @@
+server:
+  port: 8181
+spring:
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    password: root
+#    url: jdbc:mariadb://localhost:3306/accountdb
+#    username: root
+  config:
+    import: optional:configserver:http://localhost:8888/
+  application:
+       name: customer-microservice
+       
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      
+eureka:
+  client: 
+      register-with-eureka: true
+      service-url:
+          defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+          
+logging:
+    file:
+      name: customer-log.log
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

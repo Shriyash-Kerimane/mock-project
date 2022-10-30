@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Save employee page</title>
+</head>
+<body>
+<h2>Transaction details</h2>
+<form action="loginPage" method="GET">
+<span>Enter user Id</span><input type="text" name="userId"><br/>
+<span>Enter  password</span><input type="text" name="password"><br/>
+<div>
+<label for="exampleFormControlInput3" class="form-label">Select account Type</label>
+<select class="form-select" name="userType" aria-label="Default select example">
+  <option selected>Open this select menu</option>
+  <option value="customer">customer</option>
+  <option value="employee">employee</option>
+</select>
+</div>
+<h2><span th:text="${response}"></span></h2>
+<input type="submit" value="Login">
+</form>
+</body>
+</html>

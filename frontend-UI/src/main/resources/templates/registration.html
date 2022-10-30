@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Save user page</title>
+</head>
+<body>
+<h2>Registration details</h2>
+<form action="registration" method="GET">
+<span>Enter user name</span><input type="text" name="userName"><br/>
+<span>Enter  password</span><input type="text" name="password"><br/>
+<span>Enter  ph.No</span><input type="text" name="phoneNumber"><br/>
+<span>Enter  email Id</span><input type="text" name="emailId"><br/>
+<div>
+<label for="exampleFormControlInput3" class="form-label">Select account Type</label>
+<select class="form-select" name="user" aria-label="Default select example">
+  <option selected>Open this select menu</option>
+  <option value="customer">customer</option>
+  <option value="employee">employee</option>
+</select>
+</div>
+<input type="submit" value="Login">
+</form>
+</body>
+</html>
