@@ -40,7 +40,6 @@
 	</build>
 
 	<modules>
-		<module>temp-microservice</module>
 		<module>employee-microservice</module>
 		<module>customer-microservice</module>
 		<module>api-gateway</module>
