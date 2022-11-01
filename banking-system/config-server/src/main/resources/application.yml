@@ -6,4 +6,4 @@ spring:
     config:
       server:
         git:
-          uri: c:/temp/config
+          uri: ${GIT_URL:https://github.com/Shriyash-Kerimane/config.git}

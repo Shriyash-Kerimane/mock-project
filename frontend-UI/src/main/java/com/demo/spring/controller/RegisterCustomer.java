@@ -27,7 +27,7 @@ public class RegisterCustomer {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<CredentialsDTO> request = new HttpEntity<>(credentialsDTO, headers);
-		ResponseEntity<Message> response = restTemplate.exchange("http://localhost:8383/gateway/", HttpMethod.POST,
+		ResponseEntity<Message> response = restTemplate.exchange("http://localhost:8484/gateway/", HttpMethod.POST,
 				request, Message.class);
 		if (response.getBody().getStatus().equalsIgnoreCase("customer")) {
 
@@ -55,7 +55,7 @@ public class RegisterCustomer {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<RegisterInput> request = new HttpEntity<>(input, headers);
-		restTemplate.exchange("http://localhost:8383/gateway/register", HttpMethod.POST,
+		restTemplate.exchange("http://localhost:8484/gateway/register", HttpMethod.POST,
 				request, Message.class);
 		mv.setViewName("login");
 		return mv;

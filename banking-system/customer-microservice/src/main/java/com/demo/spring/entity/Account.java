@@ -13,8 +13,8 @@ import javax.persistence.Table;
 public class Account {
 	
 	@Id
-    @SequenceGenerator(sequenceName = "accountnumber_sequence",initialValue = 100003,allocationSize = 1, name = "accountnumber_generator")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "accountnumber_generator")
+    @SequenceGenerator(sequenceName = "account_sequence",initialValue = 100003,allocationSize = 1, name = "account_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "account_sequence")
     @Column(name="ACCOUNTNUMBER")
 	private Integer accountNumber;
 	

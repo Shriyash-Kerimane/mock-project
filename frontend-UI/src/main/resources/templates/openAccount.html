@@ -148,10 +148,19 @@
 						<div id="emailHelp" class="form-text">Never share your Id
 							with anyone else.</div>
 					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">Account Type</label> <input type="text" class="form-control" id="accountNumber"
-							name="accountType" required>
-					</div>
+					<div>
+					<label for="exampleFormControlInput3" class="form-label">Select
+						account Type</label> <select class="form-select" name="userType"
+						aria-label="Default select example">
+						<option selected>Open this select menu</option>
+						<option value="savings">savings</option>
+						<option value="current">current</option>
+						<option value="FD">FD</option>
+						<option value="RD">RD</option>
+						<option value="demat">demat</option>
+						<option value="salary">salary</option>
+					</select>
+				</div>
 					<div class="mb-3">
 						<label for="exampleInputEmail1" class="form-label">Opening Balance</label> <input type="text" class="form-control" id="customerId"
 							aria-describedby="emailHelp" name="balance" required>

@@ -32,13 +32,13 @@ public class CustomerController {
 	RestTemplate restTemplate;
 
 	@PostMapping(path = "/createAccount")
-	public ModelAndView createAccount(AccountDTO accountDTO) throws JsonProcessingException {
+	public ModelAndView createAccount(AccountDTO accountDTO){
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<AccountDTO> request = new HttpEntity<>(accountDTO, headers);
 
-		ResponseEntity<String> accountResponse = restTemplate.exchange("http://localhost:8181/customer/createaccount",
+		ResponseEntity<String> accountResponse = restTemplate.exchange("http://localhost:8484/customer/createaccount",
 				HttpMethod.POST, request, String.class);
 		mv.addObject("accountResponse", accountResponse.getBody());
 		mv.setViewName("openAccountResponse");
@@ -47,13 +47,13 @@ public class CustomerController {
 	}
 
 	@PostMapping(path = "/withdrawAmount")
-	public ModelAndView withdrawAmount(TransactionInput input) throws JsonProcessingException {
+	public ModelAndView withdrawAmount(TransactionInput input) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<TransactionInput> request = new HttpEntity<>(input, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8181/customer/withdraw",
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8484/customer/withdraw",
 				HttpMethod.PATCH, request, String.class);
 		mv.addObject("response", response.getBody());
 		mv.setViewName("withdrawInput");
@@ -62,13 +62,13 @@ public class CustomerController {
 	}
 
 	@PostMapping(path = "/depositAmount")
-	public ModelAndView depositAmount(TransactionInput input) throws JsonProcessingException {
+	public ModelAndView depositAmount(TransactionInput input){
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<TransactionInput> request = new HttpEntity<>(input, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8181/customer/deposit",
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8484/customer/deposit",
 				HttpMethod.PATCH, request, String.class);
 		mv.addObject("response", response.getBody());
 		mv.setViewName("depositInput");
@@ -76,13 +76,13 @@ public class CustomerController {
 	}
 
 	@PostMapping(path = "/transferAmount")
-	public ModelAndView transferAmount(TransferInput input) throws JsonProcessingException {
+	public ModelAndView transferAmount(TransferInput input) {
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<TransferInput> request = new HttpEntity<>(input, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8181/customer/transfer",
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8484/customer/transfer",
 				HttpMethod.PATCH, request, String.class);
 		mv.addObject("response", response.getBody());
 		mv.setViewName("transferResponse");
@@ -90,13 +90,13 @@ public class CustomerController {
 	}
 
 	@GetMapping(path = "/checkbalance")
-	public ModelAndView checkBalance(AccountNumberInput accountInput) throws JsonProcessingException {
+	public ModelAndView checkBalance(AccountNumberInput accountInput){
 		ModelAndView mv = new ModelAndView();
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<AccountNumberInput> request = new HttpEntity<>(accountInput, headers);
 
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8181/customer/checkbalance",
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8484/customer/checkbalance",
 				HttpMethod.POST, request, String.class);
 		mv.addObject("response", response.getBody());
 		mv.setViewName("checkBalance");
@@ -118,7 +118,7 @@ public class CustomerController {
 		String msgJson2 = mapper.writeValueAsString(msg2);
 
 		String url = restTemplate
-				.exchange("http://localhost:8181/customer/statement", HttpMethod.POST, req, String.class).getBody();
+				.exchange("http://localhost:8484/customer/statement", HttpMethod.POST, req, String.class).getBody();
 
 		if (url.equals(msgJson1)) {
 			mv.addObject("response", "Customer Not Found");
@@ -131,7 +131,7 @@ public class CustomerController {
 			return mv;
 		} else {
 
-			ResponseEntity<List<Statement>> response = restTemplate.exchange("http://localhost:8181/customer/statement",
+			ResponseEntity<List<Statement>> response = restTemplate.exchange("http://localhost:8484/customer/statement",
 					HttpMethod.POST, req, new ParameterizedTypeReference<List<Statement>>() {
 					});
 			mv.addObject("statementList", response.getBody());

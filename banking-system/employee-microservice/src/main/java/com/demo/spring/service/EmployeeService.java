@@ -28,6 +28,9 @@ public class EmployeeService {
 	@Autowired
 	CustomerRepository customerRepository;
 	
+	@Autowired
+	Notification notification;
+	
 	private Logger logger = LogManager.getLogger(this.getClass().getName());
 	
 	public CustomerDetailDTO customerDetail(CustomerInput input){
@@ -68,7 +71,10 @@ public class EmployeeService {
 		Optional<Customer> customer = customerRepository.findById(account.getCustomerId());
 		if(customer.isPresent()) {
 		accountRepository.save(account);
-		logger.info("Acoount created with account number {}",account.getAccountNumber());	
+		logger.info("Acoount created with account number {}",account.getAccountNumber());
+		Message mail = new Message(
+				"Your Account opened successfully...your new account number is " + account.getAccountNumber());
+		notification.sendEmail(customer.get().getEmailId(), mail);
 		return new Message("Account saved successfully");
 		}else {
 			logger.error("Customer detail retrived successfully");	

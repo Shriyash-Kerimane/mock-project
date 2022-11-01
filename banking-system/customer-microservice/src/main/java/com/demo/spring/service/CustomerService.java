@@ -34,6 +34,9 @@ public class CustomerService {
 
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	Notification notification;
 
 	private static final String ACCOUNTNOTFOUND = "Account {} not found";
 	private static final String CUSTOMERNOTFOUND = "Customer {} not found";
@@ -45,6 +48,9 @@ public class CustomerService {
 		if (customer.isPresent()) { 
 			accountRepository.save(account);
 			logger.info("Account created with accountNumber  {}", account.getAccountNumber());
+			Message mail = new Message(
+					"Your Account opened successfully...your new account number is " + account.getAccountNumber());
+			notification.sendEmail(customer.get().getEmailId(), mail);
 			return new Message("Account saved successfully");
 		} else {
 			logger.error("CustomerId not found {}", account.getCustomerId());
@@ -62,7 +68,11 @@ public class CustomerService {
 				Statement statement = new Statement(input.getAccountNumber(), "deposit", input.getAmount(), updatedBalance,
 						input.getDate());
 				statementRepository.save(statement);
-				logger.info("Amount deposited successfully to account number {}", account.get().getAccountNumber());		
+				logger.info("Amount deposited successfully to account number {}", account.get().getAccountNumber());
+				Message mail = new Message(
+						input.getAmount() + " credited to account number " + account.get().getAccountNumber()
+								+ " ...available balance in your account is "+updatedBalance);
+				notification.sendEmail(customer.get().getEmailId(), mail);
 				return new Message("Balance in account is " + updatedBalance);
 			} else {
 				logger.error(ACCOUNTNOTFOUND, input.getAccountNumber());		
@@ -89,6 +99,10 @@ public class CustomerService {
 							updatedBalance, input.getDate());
 					statementRepository.save(statement);
 					logger.info("Amount withdraw of {} successfull", input.getAmount());
+					Message mail = new Message(
+							input.getAmount() + " debited from account number " + account.get().getAccountNumber()
+									+ " ...available balance in your account is "+updatedBalance);
+					notification.sendEmail(customer.get().getEmailId(), mail);
 					return new Message("Balance in Account is "+updatedBalance);
 				}
 			} else {

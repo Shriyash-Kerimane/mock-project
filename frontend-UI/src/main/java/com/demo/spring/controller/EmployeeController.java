@@ -37,7 +37,7 @@ public class EmployeeController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<AccountDTO> request = new HttpEntity<>(accountDTO, headers);
-		ResponseEntity<String> accountResponse = restTemplate.exchange("http://localhost:8282/employee/createaccount",
+		ResponseEntity<String> accountResponse = restTemplate.exchange("http://localhost:8484/employee/createaccount",
 				HttpMethod.POST, request, String.class);
 		mv.addObject("accountResponseEmployee", accountResponse.getBody());
 		mv.setViewName("openAccountResponseEmployee");
@@ -50,7 +50,7 @@ public class EmployeeController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<Void> request = new HttpEntity<>(headers);
-		ResponseEntity<List<CustomerDTO>> response = restTemplate.exchange("http://localhost:8282/employee/listall",
+		ResponseEntity<List<CustomerDTO>> response = restTemplate.exchange("http://localhost:8484/employee/listall",
 				HttpMethod.GET, request, new ParameterizedTypeReference<List<CustomerDTO>>() {
 				});
 		mv.addObject("listCustomer", response.getBody());
@@ -73,7 +73,7 @@ public class EmployeeController {
 		String msgJson = mapper.writeValueAsString(msg);
 
 		String url = restTemplate
-				.exchange("http://localhost:8282/employee/customerdetails", HttpMethod.POST, req, String.class)
+				.exchange("http://localhost:8484/employee/customerdetails", HttpMethod.POST, req, String.class)
 				.getBody();
 
 		if (url.equals(msgJson)) {
@@ -83,7 +83,7 @@ public class EmployeeController {
 		} else {
 
 			ResponseEntity<CustomerDetailDTO> response = restTemplate.exchange(
-					"http://localhost:8282/employee/customerdetails", HttpMethod.POST, req, CustomerDetailDTO.class);
+					"http://localhost:8484/employee/customerdetails", HttpMethod.POST, req, CustomerDetailDTO.class);
 			mv.addObject("customer", response.getBody());
 			mv.addObject("accounts", response.getBody().getAccounts());
 			mv.setViewName("customerDetails");
@@ -97,7 +97,7 @@ public class EmployeeController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<AccountNumberInput> request = new HttpEntity<>(input, headers);
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8282/employee/accountstatus",
+		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8484/employee/accountstatus",
 				HttpMethod.POST, request, String.class);
 		mv.addObject("response", response.getBody());
 		mv.setViewName("accountStatus");

@@ -160,7 +160,7 @@ class CustomerControllerTest {
 		mvc.perform(patch("/customer/withdraw").content(transactionJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.status").value("Balance in account is "+19000.0));
+				.andExpect(jsonPath("$.status").value("Balance in Account is "+19000.0));
 	}
 	
 	@Test
@@ -287,30 +287,6 @@ class CustomerControllerTest {
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(jsonPath("$.status").value("Account not found"));
     }
-    
-    
-    @Test
-    void testTransferFailForReceiver() throws Exception{
-        
-		Customer customer = new Customer(1000, "Shriyash", "98765", "sk@everywhere.com");
-    	TransferInput input = new TransferInput(1000,100000, 100001, 1000.0, "20221016");
-    	Account sender = new Account(100000,"Savings", 20000.0, 12345, "active", "bangalore"); 
-      
-        ObjectMapper mapper = new ObjectMapper();
-        
-        String transactionJson = mapper.writeValueAsString(input);
-        
-		when(customerRepository.findById(1000)).thenReturn(Optional.of(customer));
-        when(accountRepository.findById(100000)).thenReturn(Optional.of(sender));
-        when(accountRepository.findById(100001)).thenReturn(Optional.empty());
-        when(accountRepository.updateBalance(19000.0,100000)).thenReturn(1);
-        when(accountRepository.updateBalance(6000.0,100001)).thenReturn(1);
-        mvc.perform(patch("/customer/transfer").content(transactionJson).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(jsonPath("$.status").value("Account not found"));
-    }
 	
     @Test
     void testTransferFailForSenderLowBalance() throws Exception{
@@ -348,7 +324,7 @@ class CustomerControllerTest {
 		mvc.perform(post("/customer/checkbalance").content(accountJson).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.status").value("Balance in account is "+10000.0));
+				.andExpect(jsonPath("$.status").value("Balance in account is"+10000.0));
 
 	}
 	

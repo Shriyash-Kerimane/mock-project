@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Account {
 	
 	@Id
-    @SequenceGenerator(sequenceName = "account_sequence",initialValue = 110000,allocationSize = 1, name = "account_generator")
+    @SequenceGenerator(sequenceName = "account_sequence",initialValue = 100003,allocationSize = 1, name = "account_generator")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "account_generator")
     @Column(name="ACCOUNTNUMBER")
 	private Integer accountNumber;
